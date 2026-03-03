@@ -1,0 +1,8 @@
+# Project
+build/
+
+# Compiler
+build-binutils/
+build-gcc/
+cross/
+envsetup
