@@ -18,5 +18,5 @@ Build files will build to `path/build`
 ### Running
 Current command for running the project
 ```bash
-qemu-system-x86_64 "build/[boot].bin"   # In project root path
+qemu-system-x86_64 -fda build/galactic-os.bin   # In project root path
 ```

@@ -1,10 +1,31 @@
-build: $(PREFIX)/../[BOOT]/[boot].asm
-	@if [ ! -d '$(PREFIX)/../build' ]; then mkdir '$(PREFIX)/../build'; fi
-	nasm -f bin '$(PREFIX)/../[BOOT]/[boot].asm' -o '$(PREFIX)/../build/[boot].bin'
-	@echo "Built [BOOT] to build/"
+BUILD=$(PREFIX)/../build
+NAME=galactic-os
 
 
-clear:
+
+build: FORCE
+	@if [ ! -d "$(BUILD)" ]; then mkdir $(BUILD); fi
+
+	$(MAKE) bootloader
+	$(MAKE) kernel
+
+	@echo "Links bootloader with kernel"
+	cat $(BUILD)/[boot].bin $(BUILD)/kernel.bin > $(BUILD)/$(NAME).bin
+
+
+
+bootloader: FORCE
+	$(MAKE) -C $(PREFIX)/../[BOOT]/
+
+kernel: FORCE
+	$(MAKE) -C $(PREFIX)/../[KERNEL]/
+
+
+
+clear: FORCE
 	@rm -rf $(PREFIX)/../build
 	@echo "Removed build, $(PREFIX)/../build"
 
+
+
+FORCE:

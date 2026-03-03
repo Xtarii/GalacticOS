@@ -3,7 +3,7 @@
 ;
 ; : dh - Number of sectors to read
 ;
-loadd:
+load_disk:
     pusha
     push dx
 
@@ -41,5 +41,5 @@ loadd:
 
 
 
-DISK_ERROR: db "Disk reading error", 0
-DISK_SECTOR_ERROR: db "Incorrect number of sectors read", 0
+DISK_ERROR db "Disk reading error", 0
+DISK_SECTOR_ERROR db "Incorrect number of sectors read", 0

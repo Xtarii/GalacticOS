@@ -2,13 +2,13 @@
 ; Switches to 32 bit protected mode
 ;
 [bits 16]
-switch:
+switch_to_protected:
     cli
     lgdt [descriptorg]
     mov eax, cr0
     or eax, 0x1
     mov cr0, eax
-    jmp CODE_SEG:init
+    jmp CODE_SEG:init_protected
 
 
 
@@ -16,7 +16,7 @@ switch:
 ; 32 bit initialization
 ;
 [bits 32]
-init:
+init_protected:
     mov ax, DATA_SEG
     mov ds, ax
     mov ss, ax
@@ -27,4 +27,4 @@ init:
     mov ebp, 0x90000
     mov esp, ebp
 
-    call ENTER
+    call PM_ENTRYPOINT
