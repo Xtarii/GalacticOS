@@ -11,6 +11,8 @@ void main() {
 
 
     print("Hello, world!");
+
+    while(1);
 }
 
 
