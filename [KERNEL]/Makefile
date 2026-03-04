@@ -4,13 +4,17 @@ BUILD=$(PREFIX)/../build
 
 kernel: kernel.c entry.asm
 	@echo "Compiles kernel..."
-	$(TARGET)-gcc -ffreestanding -c kernel.c -o $(BUILD)/kernel.o
+	$(TARGET)-gcc -g -ffreestanding -c kernel.c -o $(BUILD)/kernel.o
 	nasm entry.asm -f elf -o $(BUILD)/entry.o
 
 	$(TARGET)-ld -o $(BUILD)/kernel.bin -Ttext 0x1000 \
 		$(BUILD)/entry.o \
 		$(BUILD)/kernel.o \
 		--oformat binary
+
+	$(TARGET)-ld -o $(BUILD)/kernel-debug.elf -Ttext 0x1000 \
+		$(BUILD)/entry.o \
+		$(BUILD)/kernel.o
 
 	$(MAKE) clear-build
 

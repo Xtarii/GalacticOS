@@ -14,6 +14,14 @@ build: FORCE
 
 
 
+debug: build
+	qemu-system-i386 -s -S -fda $(BUILD)/$(NAME).bin &
+	gdb $(BUILD)/kernel-debug.elf \
+		-ex "set architecture i386" \
+		-ex "target remote localhost:1234"
+
+
+
 bootloader: FORCE
 	$(MAKE) -C $(PREFIX)/../[BOOT]/
 

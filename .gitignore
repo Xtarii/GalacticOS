@@ -3,6 +3,7 @@ build/
 
 # Compiler
 build-binutils/
+build-gdb/
 build-gcc/
 cross/
 envsetup
