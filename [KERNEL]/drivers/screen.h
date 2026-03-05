@@ -48,7 +48,7 @@ void clear();
  *
  * @return The new cursor offset
  */
-int kput_char(char, int, int, int);
+int kput_char(char c, int col, int row, int attribute);
 
 
 
@@ -56,11 +56,11 @@ int kput_char(char, int, int, int);
  * Prints message to kernel screen at position.
  * Column / Row position.
  */
-void kprint_at(char*, int, int);
+void kprint_at(const char*, int, int);
 
 /**
  * Prints string to kernel screen
  */
-void kprint(char*);
+void kprint(const char*);
 
 #endif // GALACTIC_SCREEN

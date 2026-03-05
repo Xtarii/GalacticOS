@@ -11,8 +11,6 @@ void set_cursor_offset(int);
 int get_offset_col(int);
 int get_offset_row(int);
 
-int print_char(char, int, int, int);
-
 
 
 // ==========================
@@ -33,63 +31,12 @@ void clear() {
 
 int kput_char(char c, int col, int row, int attribute) {
     unsigned char *video = (unsigned char*)VIDEO_ADDRESS;
+    if(!attribute) attribute = WHITE_ON_BLACK;
 
     if(col >= MAX_COLS || row >= MAX_ROWS) {
         col = MAX_COLS - 1;
         row = MAX_ROWS - 1;
         return kput_char('E', col, row, RED_ON_WHITE);
-    }
-
-    if(!attribute) attribute = WHITE_ON_BLACK;
-
-    int offset = get_offset(col, row);
-    video[offset] = c;
-    video[offset + 1] = attribute;
-    offset += 2;
-
-    set_cursor_offset(offset);
-    return offset;
-}
-
-
-
-
-
-void kprint_at(char *str, int col, int row) {
-    int offset;
-    if(col >= 0 && row >= 0) {
-        offset = get_offset(col, row);
-    } else {
-        offset = get_cursor_offset();
-        col = get_offset_col(offset);
-        row = get_offset_row(offset);
-    }
-
-    do {
-        offset = print_char(*str, col, row, WHITE_ON_BLACK);
-        col = get_offset_col(offset);
-        row = get_offset_row(offset);
-    }while(*str++);
-}
-
-void kprint(char *str) {
-    kprint_at(str, -1, -1);
-}
-
-
-
-// ==========================
-// Private kernel API methods
-// ==========================
-
-int print_char(char c, int col, int row, int attribute) {
-    unsigned char *vidmem = (unsigned char*) VIDEO_ADDRESS;
-    if(!attribute) attribute = WHITE_ON_BLACK;
-
-    if(col >= MAX_COLS || row >= MAX_ROWS) {
-        vidmem[2 * (MAX_COLS) * (MAX_ROWS) - 2] = 'E';
-        vidmem[2 * (MAX_COLS) * (MAX_ROWS) - 1] = RED_ON_WHITE;
-        return get_offset(col, row);
     }
 
     int offset;
@@ -100,14 +47,42 @@ int print_char(char c, int col, int row, int attribute) {
         row = get_offset_row(offset);
         offset = get_offset(0, row + 1);
     }else {
-        vidmem[offset] = c;
-        vidmem[offset + 1] = attribute;
+        video[offset] = c;
+        video[offset + 1] = attribute;
         offset += 2;
     }
 
     set_cursor_offset(offset);
     return offset;
 }
+
+void kprint_at(const char *str, int col, int row) {
+    int offset;
+    if(col >= 0 && row >= 0) {
+        offset = get_offset(col, row);
+    } else {
+        offset = get_cursor_offset();
+        col = get_offset_col(offset);
+        row = get_offset_row(offset);
+    }
+
+    while(*str) {
+        offset = kput_char(*str, col, row, WHITE_ON_BLACK);
+        col = get_offset_col(offset);
+        row = get_offset_row(offset);
+        str++;
+    }
+}
+
+void kprint(const char *str) {
+    kprint_at(str, -1, -1);
+}
+
+
+
+// ==========================
+// Private kernel API methods
+// ==========================
 
 int get_cursor_offset() {
     pbout(REG_SCREEN_CTRL, 14);
