@@ -44,6 +44,15 @@
 void clear();
 
 /**
+ * Puts character on kernel screen at position
+ *
+ * @return The new cursor offset
+ */
+int kput_char(char, int, int, int);
+
+
+
+/**
  * Prints message to kernel screen at position.
  * Column / Row position.
  */
