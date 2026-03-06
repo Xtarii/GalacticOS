@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/xtarii/code/GalacticOS/[KERNEL]",
-      "program": "/home/xtarii/code/GalacticOS/[KERNEL]/build/Debug/outDebug",
+      "cwd": "/home/xtarii/code/GalacticOS/[KERNEL]/utilities",
+      "program": "/home/xtarii/code/GalacticOS/[KERNEL]/utilities/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

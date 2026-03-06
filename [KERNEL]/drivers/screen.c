@@ -1,5 +1,6 @@
 #include "screen.h"
 #include "ports.h"
+#include "../utilities/utils.h"
 
 // ==========================
 // Private method ( decl )
@@ -10,6 +11,8 @@ int get_cursor_offset();
 void set_cursor_offset(int);
 int get_offset_col(int);
 int get_offset_row(int);
+
+int scroll_if_needed(int);
 
 
 
@@ -52,6 +55,7 @@ int kput_char(char c, int col, int row, int attribute) {
         offset += 2;
     }
 
+    offset -= scroll_if_needed(offset);
     set_cursor_offset(offset);
     return offset;
 }
@@ -83,6 +87,24 @@ void kprint(const char *str) {
 // ==========================
 // Private kernel API methods
 // ==========================
+
+int scroll_if_needed(int scroll) {
+    if(scroll < MAX_ROWS * MAX_COLS * 2) return 0;
+
+    for(int i = 0; i < MAX_ROWS; i++) {
+        int sa = get_offset(0, i) + VIDEO_ADDRESS;
+        void *src = (void*)((long)get_offset(0, i)) + VIDEO_ADDRESS;
+        void *dst = (void*)((long)get_offset(0, i - 1)) + VIDEO_ADDRESS;
+        kmemcpy(src, dst, MAX_COLS * 2);
+    }
+
+    char *last = (char *)((long)get_offset(0, MAX_ROWS - 1)) + VIDEO_ADDRESS;
+    for(int i = 0; i < MAX_COLS * 2; i++) last[i] = 0;
+
+    return 2 * MAX_COLS;
+}
+
+
 
 int get_cursor_offset() {
     pbout(REG_SCREEN_CTRL, 14);
