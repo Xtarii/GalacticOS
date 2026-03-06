@@ -15,6 +15,11 @@
  */
 #define null 0
 
+/**
+ * Kernel boolean type
+ */
+typedef int kbool;
+
 
 
 /**

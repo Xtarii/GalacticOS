@@ -3,12 +3,12 @@ CFLAGS=-g -ffreestanding
 
 
 
-kernel: kernel.c entry.asm build-dependencies build-screen $(BUILD)/utils.o
+kernel: output kernel.c entry.asm ports.o screen.o utils.o
 	@echo "Compiles kernel..."
 	$(TARGET)-gcc $(CFLAGS) -c kernel.c -o $(BUILD)/kernel.o
 	nasm entry.asm -f elf -o $(BUILD)/entry.o
 
-	$(TARGET)-ld -o $(BUILD)/kernel.bin -Ttext 0x1000 \
+	@$(TARGET)-ld -o $(BUILD)/kernel.bin -Ttext 0x1000 \
 		$(BUILD)/entry.o \
 		$(BUILD)/kernel.o \
 		$(BUILD)/ports.o \
@@ -16,7 +16,7 @@ kernel: kernel.c entry.asm build-dependencies build-screen $(BUILD)/utils.o
 		$(BUILD)/utils.o \
 		--oformat binary
 
-	$(TARGET)-ld -o $(BUILD)/kernel-debug.elf -Ttext 0x1000 \
+	@$(TARGET)-ld -o $(BUILD)/kernel-debug.elf -Ttext 0x1000 \
 		$(BUILD)/entry.o \
 		$(BUILD)/kernel.o \
 		$(BUILD)/ports.o  \
@@ -27,14 +27,21 @@ kernel: kernel.c entry.asm build-dependencies build-screen $(BUILD)/utils.o
 
 
 
-build-dependencies: drivers/ports.c drivers/ports.h
-	$(TARGET)-gcc $(CFLAGS) -c drivers/ports.c -o $(BUILD)/ports.o
+ports.o: drivers/ports.c drivers/ports.h
+	$(TARGET)-gcc $(CFLAGS) -c $< -o $(BUILD)/$@
 
-build-screen: drivers/screen.c drivers/screen.h
-	$(TARGET)-gcc $(CFLAGS) -c drivers/screen.c -o $(BUILD)/screen.o
+screen.o: drivers/screen.c drivers/screen.h
+	$(TARGET)-gcc $(CFLAGS) -c $< -o $(BUILD)/$@
 
-$(BUILD)/utils.o: utilities/utils.c utilities/utils.h
-	$(TARGET)-gcc $(CFLAGS) -c $< -o $@
+utils.o: utilities/utils.c utilities/utils.h
+	$(TARGET)-gcc $(CFLAGS) -c $< -o $(BUILD)/$@
+
+
+
+
+
+output: $(BUILD)
+	mkdir -p $(BUILD)
 
 
 
@@ -44,4 +51,5 @@ clear-build:
 		$(BUILD)/entry.o \
 		$(BUILD)/kernel.o \
 		$(BUILD)/ports.o \
-		$(BUILD)/screen.o
+		$(BUILD)/screen.o \
+		$(BUILD)/utils.o
