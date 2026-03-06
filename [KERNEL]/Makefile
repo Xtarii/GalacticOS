@@ -33,7 +33,7 @@ build-dependencies: drivers/ports.c drivers/ports.h
 build-screen: drivers/screen.c drivers/screen.h
 	$(TARGET)-gcc $(CFLAGS) -c drivers/screen.c -o $(BUILD)/screen.o
 
-$(BUILD)/utils.o : utilities/utils.c utilities/utils.h
+$(BUILD)/utils.o: utilities/utils.c utilities/utils.h
 	$(TARGET)-gcc $(CFLAGS) -c $< -o $@
 
 
