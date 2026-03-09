@@ -7,11 +7,11 @@
 void main() {
     irq_init();
     isr_init();
+    asm volatile("sti"); // Needed for callbacks
 
     clear();
 
-    asm volatile("sti");
-    init_timer(50);
+    init_timer(1193180 * 2);
 
     init_keyboard();
 

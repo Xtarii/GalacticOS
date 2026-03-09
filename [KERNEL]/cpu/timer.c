@@ -10,7 +10,7 @@ uint32_t tick = 0;
 static void callback(ISR_registers_t reg) {
     tick++;
 
-    kprint("Tick: ");
+    kprint_at("Tick: ", 0, 0);
     char ascii[256];
     itoa(tick, ascii);
     kprint(ascii);
