@@ -138,7 +138,7 @@ isr_5:
     push byte 5
     jmp isr
 
-isr_6
+isr_6:
     cli
     push byte 0
     push byte 6
