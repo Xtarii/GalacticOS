@@ -27,7 +27,7 @@ call switch_to_protected
 [bits 16]
 load_kernel:
     mov bx, KERNEL_OFFSET
-    mov dh, 16              ; Sectors to read for the kernel
+    mov dh, 32              ; Sectors to read for the kernel
     mov dl, [BOOT_DRIVE]
     call load_disk
     ret
