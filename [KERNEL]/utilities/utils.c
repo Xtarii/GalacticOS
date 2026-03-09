@@ -8,13 +8,26 @@ void kmemcpy(void *src, void *dst, int bytes) {
 
 
 
-void itoa(int n, char *buffer) {
-    int i = 0, sign = 0;
-    if((sign = n) < 0) n = -n;
-    do {
-        buffer[i++] = n % 10 + '0';
-    }while((n /= 10) > 0);
+int numlen(int n) {
+    int len = 0;
+    if(n < 0) n = -n;
+    do len++; while((n /= 10) > 0);
+    return len;
+}
 
-    if(sign < 10) buffer[i++] = '-';
-    buffer[i] = '\0';
+
+
+void itoa(int n, char *buffer) {
+    int o = 0;
+    if(n < 0) {
+        n = -n;
+        buffer[o++] = '-';
+    }
+
+    int len = numlen(n);
+    for(int i = len - 1; i >= 0; i--) {
+        int p = i + o;
+        buffer[p] = n % 10 + '0';
+        n /= 10;
+    }
 }

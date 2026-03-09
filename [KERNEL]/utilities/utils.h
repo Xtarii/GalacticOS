@@ -28,6 +28,19 @@ typedef int kbool;
 void kmemcpy(void *src, void *dest, int bytes);
 
 /**
+ * Counts the length of the number
+ *
+ * This counts how many characters the number
+ * would contain if it was a string.
+ *
+ * This will ignore the `-` sign if the
+ * number is negative.
+ *
+ * @return The character array size of the number
+ */
+int numlen(int n);
+
+/**
  * Converts int to Ascii
  */
 void itoa(int n, char *buffer);
