@@ -1,5 +1,7 @@
 #include "cpu/IRQ.h"
 #include "cpu/ISR.h"
+#include "cpu/timer.h"
+#include "drivers/keyboard.h"
 #include "drivers/screen.h"
 
 void main() {
@@ -8,8 +10,10 @@ void main() {
 
     clear();
 
-    __asm__ __volatile__("int $2");
-    __asm__ __volatile__("int $3");
+    asm volatile("sti");
+    init_timer(50);
+
+    init_keyboard();
 
     while(1); /* Infinity loop */
 }
