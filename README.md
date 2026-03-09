@@ -1,6 +1,8 @@
 # Galactic OS
-
-Simply a useless operating system
+Simply a useless operating system.
+Sources,
+> - [OS Tutorial](https://github.com/cfenollosa/os-tutorial)
+> - [OSDev Wiki](https://wiki.osdev.org/Expanded_Main_Page)
 
 
 ### Environment
