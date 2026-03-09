@@ -19,6 +19,7 @@ kernel: ${KERNEL_DEPENDENCIES}
 		$(BUILD)/IDT.o \
 		$(BUILD)/ISR.o \
 		$(BUILD)/IRQ.o \
+		$(BUILD)/timer.o \
 		$(BUILD)/interrupt.o \
 		--oformat binary
 
@@ -31,6 +32,7 @@ kernel: ${KERNEL_DEPENDENCIES}
 		$(BUILD)/IDT.o \
 		$(BUILD)/ISR.o \
 		$(BUILD)/IRQ.o \
+		$(BUILD)/timer.o \
 		$(BUILD)/interrupt.o
 
 	$(MAKE) clear-build
@@ -46,10 +48,11 @@ screen.o: drivers/screen.c drivers/screen.h
 utils.o: utilities/utils.c utilities/utils.h
 	$(TARGET)-gcc $(CFLAGS) -c $< -o $(BUILD)/$@
 
-cpu: cpu/IDT.c cpu/IDT.h cpu/ISR.c cpu/ISR.h cpu/interrupt.asm cpu/IRQ.c cpu/IRQ.h
+cpu: cpu/IDT.c cpu/IDT.h cpu/ISR.c cpu/ISR.h cpu/interrupt.asm cpu/IRQ.c cpu/IRQ.h cpu/timer.c cpu/timer.h
 	$(TARGET)-gcc $(CFLAGS) -c cpu/IDT.c -o $(BUILD)/IDT.o
 	$(TARGET)-gcc $(CFLAGS) -c cpu/ISR.c -o $(BUILD)/ISR.o
 	$(TARGET)-gcc $(CFLAGS) -c cpu/IRQ.c -o $(BUILD)/IRQ.o
+	$(TARGET)-gcc $(CFLAGS) -c cpu/timer.c -o $(BUILD)/timer.o
 	nasm cpu/interrupt.asm -f elf -o $(BUILD)/interrupt.o
 
 
@@ -72,4 +75,5 @@ clear-build:
 		$(BUILD)/IDT.o \
 		$(BUILD)/ISR.o \
 		$(BUILD)/IRQ.o \
+		$(BUILD)/timer.o \
 		$(BOOT)/interrupt.o
