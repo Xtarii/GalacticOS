@@ -33,10 +33,10 @@ typedef signed char int8_t;
 /**
  * Low 16 bit for address
  */
-#define LOW_16(address) (uint16)((address) & 0xFFFF)
+#define LOW_16(address) (uint16_t)((address) & 0xFFFF)
 /**
  * High 16 bit for address
  */
-#define HIGH_16(address) (uint16)(((address) >> 16) & 0xFFFF)
+#define HIGH_16(address) (uint16_t)(((address) >> 16) & 0xFFFF)
 
 #endif // GALACTIC_TYPES_H
