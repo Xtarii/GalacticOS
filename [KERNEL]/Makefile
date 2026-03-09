@@ -21,6 +21,7 @@ kernel: ${KERNEL_DEPENDENCIES}
 		$(BUILD)/IRQ.o \
 		$(BUILD)/timer.o \
 		$(BUILD)/interrupt.o \
+		$(BUILD)/keyboard.o \
 		--oformat binary
 
 	@$(TARGET)-ld -o $(BUILD)/kernel-debug.elf -Ttext 0x1000 \
@@ -33,7 +34,8 @@ kernel: ${KERNEL_DEPENDENCIES}
 		$(BUILD)/ISR.o \
 		$(BUILD)/IRQ.o \
 		$(BUILD)/timer.o \
-		$(BUILD)/interrupt.o
+		$(BUILD)/interrupt.o\
+		$(BUILD)/keyboard.o
 
 	$(MAKE) clear-build
 
@@ -54,6 +56,9 @@ cpu: cpu/IDT.c cpu/IDT.h cpu/ISR.c cpu/ISR.h cpu/interrupt.asm cpu/IRQ.c cpu/IRQ
 	$(TARGET)-gcc $(CFLAGS) -c cpu/IRQ.c -o $(BUILD)/IRQ.o
 	$(TARGET)-gcc $(CFLAGS) -c cpu/timer.c -o $(BUILD)/timer.o
 	nasm cpu/interrupt.asm -f elf -o $(BUILD)/interrupt.o
+
+drivers: drivers/keyboard.c drivers/keyboard.h
+	$(TARGET)-gcc $(CFLAGS) -c drivers/keyboard.c -o $(BUILD)/keyboard.o
 
 
 
@@ -76,4 +81,5 @@ clear-build:
 		$(BUILD)/ISR.o \
 		$(BUILD)/IRQ.o \
 		$(BUILD)/timer.o \
-		$(BOOT)/interrupt.o
+		$(BOOT)/interrupt.o \
+		$(BUILD)/keyboard.o
