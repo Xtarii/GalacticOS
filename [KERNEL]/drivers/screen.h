@@ -1,5 +1,5 @@
-#ifndef GALACTIC_SCREEN
-#define GALACTIC_SCREEN
+#ifndef GALACTIC_SCREEN_H
+#define GALACTIC_SCREEN_H
 
 /**
  * Video address pointer
@@ -63,4 +63,4 @@ void kprint_at(const char*, int, int);
  */
 void kprint(const char*);
 
-#endif // GALACTIC_SCREEN
+#endif // GALACTIC_SCREEN_H

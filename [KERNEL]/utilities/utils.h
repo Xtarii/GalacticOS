@@ -1,5 +1,5 @@
-#ifndef GALACTIC_UTILS
-#define GALACTIC_UTILS
+#ifndef GALACTIC_UTILS_H
+#define GALACTIC_UTILS_H
 
 /**
  * Value representing a true state
@@ -27,4 +27,4 @@ typedef int kbool;
  */
 void kmemcpy(void *src, void *dest, int bytes);
 
-#endif // GALACTIC_UTILS
+#endif // GALACTIC_UTILS_H

@@ -1,5 +1,5 @@
-#ifndef GALACTIC_PORTS
-#define GALACTIC_PORTS
+#ifndef GALACTIC_PORTS_H
+#define GALACTIC_PORTS_H
 
 /**
  * Reads byte from specified port ( port byte in )
@@ -25,4 +25,4 @@ unsigned short pwin(unsigned short);
  */
 void pwout(unsigned short, unsigned short);
 
-#endif // GALACTIC_PORTS
+#endif // GALACTIC_PORTS_H
