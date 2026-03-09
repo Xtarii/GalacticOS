@@ -1,7 +1,7 @@
 BUILD=$(PREFIX)/../build
 CFLAGS=-g -ffreestanding
 
-KERNEL_DEPENDENCIES=output kernel.c entry.asm ports.o screen.o utils.o cpu
+KERNEL_DEPENDENCIES=output kernel.c entry.asm ports.o screen.o utils.o cpu drivers
 
 
 
