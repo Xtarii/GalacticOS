@@ -17,6 +17,8 @@ kernel: ${KERNEL_DEPENDENCIES}
 		$(BUILD)/screen.o \
 		$(BUILD)/utils.o \
 		$(BUILD)/IDT.o \
+		$(BUILD)/ISR.o \
+		$(BUILD)/interrupt.o \
 		--oformat binary
 
 	@$(TARGET)-ld -o $(BUILD)/kernel-debug.elf -Ttext 0x1000 \
@@ -25,7 +27,9 @@ kernel: ${KERNEL_DEPENDENCIES}
 		$(BUILD)/ports.o  \
 		$(BUILD)/utils.o \
 		$(BUILD)/screen.o \
-		$(BUILD)/IDT.o
+		$(BUILD)/IDT.o \
+		$(BUILD)/ISR.o \
+		$(BUILD)/interrupt.o
 
 	$(MAKE) clear-build
 
@@ -40,8 +44,10 @@ screen.o: drivers/screen.c drivers/screen.h
 utils.o: utilities/utils.c utilities/utils.h
 	$(TARGET)-gcc $(CFLAGS) -c $< -o $(BUILD)/$@
 
-cpu: cpu/IDT.c cpu/IDT.h
+cpu: cpu/IDT.c cpu/IDT.h cpu/ISR.c cpu/ISR.h cpu/interrupt.asm
 	$(TARGET)-gcc $(CFLAGS) -c cpu/IDT.c -o $(BUILD)/IDT.o
+	$(TARGET)-gcc $(CFLAGS) -c cpu/ISR.c -o $(BUILD)/ISR.o
+	nasm cpu/interrupt.asm -f elf -o $(BUILD)/interrupt.o
 
 
 
@@ -60,4 +66,6 @@ clear-build:
 		$(BUILD)/ports.o \
 		$(BUILD)/screen.o \
 		$(BUILD)/utils.o \
-		$(BUILD)/IDT.o
+		$(BUILD)/IDT.o \
+		$(BUILD)/ISR.o \
+		$(BOOT)/interrupt.o
