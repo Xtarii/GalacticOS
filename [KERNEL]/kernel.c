@@ -1,7 +1,9 @@
+#include "cpu/IRQ.h"
 #include "cpu/ISR.h"
 #include "drivers/screen.h"
 
 void main() {
+    irq_init();
     isr_init();
 
     clear();

@@ -1,4 +1,5 @@
 [extern isr_handler]
+[extern irq_handler]
 
 isr:
     pusha
@@ -17,6 +18,28 @@ isr:
     mov es, ax
     mov fs, ax
     mov gs, ax
+    popa
+    add esp, 8
+    sti
+    iret
+
+irq:
+    pusha
+    mov ax, ds
+    push eax
+    mov ax, 0x10
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+
+    call irq_handler
+
+    pop ebx
+    mov ds, bx
+    mov es, bx
+    mov fs, bx
+    mov gs, bx
     popa
     add esp, 8
     sti
@@ -56,6 +79,26 @@ global isr_28
 global isr_29
 global isr_30
 global isr_31
+
+;
+; Interrupt requests
+;
+global irq_0
+global irq_1
+global irq_2
+global irq_3
+global irq_4
+global irq_5
+global irq_6
+global irq_7
+global irq_8
+global irq_9
+global irq_10
+global irq_11
+global irq_12
+global irq_13
+global irq_14
+global irq_15
 
 
 
@@ -244,3 +287,102 @@ isr_31:
     push byte 0
     push byte 31
     jmp isr
+
+;
+; Interrupt request handlers
+;
+irq_0:
+    cli
+    push byte 0
+    push byte 32
+    jmp irq
+
+irq_1:
+    cli
+    push byte 1
+    push byte 33
+    jmp irq
+
+irq_2:
+    cli
+    push byte 2
+    push byte 34
+    jmp irq
+
+irq_3:
+    cli
+    push byte 3
+    push byte 35
+    jmp irq
+
+irq_4:
+    cli
+    push byte 4
+    push byte 36
+    jmp irq
+
+irq_5:
+    cli
+    push byte 5
+    push byte 37
+    jmp irq
+
+irq_6:
+    cli
+    push byte 6
+    push byte 38
+    jmp irq
+
+irq_7:
+    cli
+    push byte 7
+    push byte 39
+    jmp irq
+
+irq_8:
+    cli
+    push byte 8
+    push byte 40
+    jmp irq
+
+irq_9:
+    cli
+    push byte 9
+    push byte 41
+    jmp irq
+
+irq_10:
+    cli
+    push byte 10
+    push byte 42
+    jmp irq
+
+irq_11:
+    cli
+    push byte 11
+    push byte 43
+    jmp irq
+
+irq_12:
+    cli
+    push byte 12
+    push byte 44
+    jmp irq
+
+irq_13:
+    cli
+    push byte 13
+    push byte 45
+    jmp irq
+
+irq_14:
+    cli
+    push byte 14
+    push byte 46
+    jmp irq
+
+irq_15:
+    cli
+    push byte 15
+    push byte 47
+    jmp irq

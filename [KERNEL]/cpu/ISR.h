@@ -5,38 +5,38 @@
 
 
 
-void isr_0();
-void isr_1();
-void isr_2();
-void isr_3();
-void isr_4();
-void isr_5();
-void isr_6();
-void isr_7();
-void isr_8();
-void isr_9();
-void isr_10();
-void isr_11();
-void isr_12();
-void isr_13();
-void isr_14();
-void isr_15();
-void isr_16();
-void isr_17();
-void isr_18();
-void isr_19();
-void isr_20();
-void isr_21();
-void isr_22();
-void isr_23();
-void isr_24();
-void isr_25();
-void isr_26();
-void isr_27();
-void isr_28();
-void isr_29();
-void isr_30();
-void isr_31();
+extern void isr_0();
+extern void isr_1();
+extern void isr_2();
+extern void isr_3();
+extern void isr_4();
+extern void isr_5();
+extern void isr_6();
+extern void isr_7();
+extern void isr_8();
+extern void isr_9();
+extern void isr_10();
+extern void isr_11();
+extern void isr_12();
+extern void isr_13();
+extern void isr_14();
+extern void isr_15();
+extern void isr_16();
+extern void isr_17();
+extern void isr_18();
+extern void isr_19();
+extern void isr_20();
+extern void isr_21();
+extern void isr_22();
+extern void isr_23();
+extern void isr_24();
+extern void isr_25();
+extern void isr_26();
+extern void isr_27();
+extern void isr_28();
+extern void isr_29();
+extern void isr_30();
+extern void isr_31();
 
 
 
@@ -76,13 +76,9 @@ typedef struct {
  */
 void isr_init();
 
-
-
 /**
- * Handles interrupt service routine register
- *
- * @param reg Register
+ * Interrupt service routine register handler
  */
-void isr_handler(ISR_registers_t reg);
+void isr_handler(ISR_registers_t);
 
 #endif // GALACTIC_ISR_H
