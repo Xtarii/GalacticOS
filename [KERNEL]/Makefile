@@ -1,9 +1,11 @@
 BUILD=$(PREFIX)/../build
 CFLAGS=-g -ffreestanding
 
+KERNEL_DEPENDENCIES=output kernel.c entry.asm ports.o screen.o utils.o cpu
 
 
-kernel: output kernel.c entry.asm ports.o screen.o utils.o
+
+kernel: ${KERNEL_DEPENDENCIES}
 	@echo "Compiles kernel..."
 	$(TARGET)-gcc $(CFLAGS) -c kernel.c -o $(BUILD)/kernel.o
 	nasm entry.asm -f elf -o $(BUILD)/entry.o
@@ -14,6 +16,7 @@ kernel: output kernel.c entry.asm ports.o screen.o utils.o
 		$(BUILD)/ports.o \
 		$(BUILD)/screen.o \
 		$(BUILD)/utils.o \
+		$(BUILD)/IDT.o \
 		--oformat binary
 
 	@$(TARGET)-ld -o $(BUILD)/kernel-debug.elf -Ttext 0x1000 \
@@ -21,7 +24,8 @@ kernel: output kernel.c entry.asm ports.o screen.o utils.o
 		$(BUILD)/kernel.o \
 		$(BUILD)/ports.o  \
 		$(BUILD)/utils.o \
-		$(BUILD)/screen.o
+		$(BUILD)/screen.o \
+		$(BUILD)/IDT.o
 
 	$(MAKE) clear-build
 
@@ -35,6 +39,9 @@ screen.o: drivers/screen.c drivers/screen.h
 
 utils.o: utilities/utils.c utilities/utils.h
 	$(TARGET)-gcc $(CFLAGS) -c $< -o $(BUILD)/$@
+
+cpu: cpu/IDT.c cpu/IDT.h
+	$(TARGET)-gcc $(CFLAGS) -c cpu/IDT.c -o $(BUILD)/IDT.o
 
 
 
@@ -52,4 +59,5 @@ clear-build:
 		$(BUILD)/kernel.o \
 		$(BUILD)/ports.o \
 		$(BUILD)/screen.o \
-		$(BUILD)/utils.o
+		$(BUILD)/utils.o \
+		$(BUILD)/IDT.o
