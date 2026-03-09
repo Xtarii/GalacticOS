@@ -5,3 +5,7 @@ void kmemcpy(void *src, void *dst, int bytes) {
         ((char*)dst)[i] = ((char*)src)[i];
     }
 }
+
+
+
+void itoa(int n, char *buffer) {}

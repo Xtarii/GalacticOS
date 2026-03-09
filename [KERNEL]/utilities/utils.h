@@ -27,4 +27,9 @@ typedef int kbool;
  */
 void kmemcpy(void *src, void *dest, int bytes);
 
+/**
+ * Converts int to Ascii
+ */
+void itoa(int n, char *buffer);
+
 #endif // GALACTIC_UTILS_H
