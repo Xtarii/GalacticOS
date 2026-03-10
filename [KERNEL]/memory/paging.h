@@ -1,0 +1,4 @@
+#ifndef GALACTIC_PAGING_H
+#define GALACTIC_PAGING_H
+
+#endif // GALACTIC_PAGING_H
