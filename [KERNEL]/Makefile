@@ -30,6 +30,7 @@ kernel: ${KERNEL_DEPENDENCIES}
 		$(BUILD)/string.o \
 		$(BUILD)/memory.o \
 		$(BUILD)/paging.o \
+		$(BUILD)/paginga.o \
 		--oformat binary
 
 	@$(TARGET)-ld -o $(BUILD)/kernel-debug.elf -T linker.ld \
@@ -46,7 +47,8 @@ kernel: ${KERNEL_DEPENDENCIES}
 		$(BUILD)/mem.o \
 		$(BUILD)/string.o \
 		$(BUILD)/memory.o \
-		$(BUILD)/paging.o
+		$(BUILD)/paging.o \
+		$(BUILD)/paginga.o
 
 	$(MAKE) clear-build
 
@@ -68,9 +70,10 @@ drivers: drivers/*.c drivers/*.h
 	$(GCC) -c drivers/screen.c -o $(BUILD)/screen.o
 	$(GCC) -c drivers/keyboard.c -o $(BUILD)/keyboard.o
 
-memory: memory/*.c memory/*.h
+memory: memory/*.c memory/*.h memory/paging.asm
 	$(GCC) -c memory/memory.c -o $(BUILD)/memory.o
 	$(GCC) -c memory/paging.c -o $(BUILD)/paging.o
+	nasm memory/paging.asm -f elf -o $(BUILD)/paginga.o
 
 
 
@@ -97,4 +100,5 @@ clear-build:
 		$(BUILD)/mem.o \
 		$(BUILD)/string.o \
 		$(BUILD)/memory.o \
-		$(BUILD)/paging.o
+		$(BUILD)/paging.o \
+		$(BUILD)/paginga.o
