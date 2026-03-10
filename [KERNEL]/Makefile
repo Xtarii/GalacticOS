@@ -1,13 +1,18 @@
+ROOT=$(PREFIX)/..
 BUILD=$(PREFIX)/../build
-CFLAGS=-g -ffreestanding
 
-KERNEL_DEPENDENCIES=output kernel.c entry.asm ports.o screen.o utils.o cpu drivers
+CFLAGS=-g -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
+	-nostartfiles -nodefaultlibs -ffreestanding -Wall -Wextra -Werror
+
+GCC=$(TARGET)-gcc $(CFLAGS)
+
+KERNEL_DEPENDENCIES=output kernel.c entry.asm cpu drivers libc
 
 
 
 kernel: ${KERNEL_DEPENDENCIES}
 	@echo "Compiles kernel..."
-	$(TARGET)-gcc $(CFLAGS) -c kernel.c -o $(BUILD)/kernel.o
+	$(GCC) -c kernel.c -o $(BUILD)/kernel.o
 	nasm entry.asm -f elf -o $(BUILD)/entry.o
 
 	@$(TARGET)-ld -o $(BUILD)/kernel.bin -Ttext 0x1000 \
@@ -15,50 +20,49 @@ kernel: ${KERNEL_DEPENDENCIES}
 		$(BUILD)/kernel.o \
 		$(BUILD)/ports.o \
 		$(BUILD)/screen.o \
-		$(BUILD)/utils.o \
 		$(BUILD)/IDT.o \
 		$(BUILD)/ISR.o \
 		$(BUILD)/IRQ.o \
 		$(BUILD)/timer.o \
 		$(BUILD)/interrupt.o \
 		$(BUILD)/keyboard.o \
+		$(BUILD)/memory.o \
+		$(BUILD)/string.o \
 		--oformat binary
 
 	@$(TARGET)-ld -o $(BUILD)/kernel-debug.elf -Ttext 0x1000 \
 		$(BUILD)/entry.o \
 		$(BUILD)/kernel.o \
 		$(BUILD)/ports.o  \
-		$(BUILD)/utils.o \
 		$(BUILD)/screen.o \
 		$(BUILD)/IDT.o \
 		$(BUILD)/ISR.o \
 		$(BUILD)/IRQ.o \
 		$(BUILD)/timer.o \
 		$(BUILD)/interrupt.o\
-		$(BUILD)/keyboard.o
+		$(BUILD)/keyboard.o \
+		$(BUILD)/memory.o \
+		$(BUILD)/string.o
 
 	$(MAKE) clear-build
 
 
 
-ports.o: drivers/ports.c drivers/ports.h
-	$(TARGET)-gcc $(CFLAGS) -c $< -o $(BUILD)/$@
-
-screen.o: drivers/screen.c drivers/screen.h
-	$(TARGET)-gcc $(CFLAGS) -c $< -o $(BUILD)/$@
-
-utils.o: utilities/utils.c utilities/utils.h
-	$(TARGET)-gcc $(CFLAGS) -c $< -o $(BUILD)/$@
+libc: $(ROOT)/libc/*.c $(ROOT)/libc/*.h
+	$(GCC) -c $(ROOT)/libc/memory.c -o $(BUILD)/memory.o
+	$(GCC) -c $(ROOT)/libc/string.c -o $(BUILD)/string.o
 
 cpu: cpu/IDT.c cpu/IDT.h cpu/ISR.c cpu/ISR.h cpu/interrupt.asm cpu/IRQ.c cpu/IRQ.h cpu/timer.c cpu/timer.h
-	$(TARGET)-gcc $(CFLAGS) -c cpu/IDT.c -o $(BUILD)/IDT.o
-	$(TARGET)-gcc $(CFLAGS) -c cpu/ISR.c -o $(BUILD)/ISR.o
-	$(TARGET)-gcc $(CFLAGS) -c cpu/IRQ.c -o $(BUILD)/IRQ.o
-	$(TARGET)-gcc $(CFLAGS) -c cpu/timer.c -o $(BUILD)/timer.o
+	$(GCC) -c cpu/IDT.c -o $(BUILD)/IDT.o
+	$(GCC) -c cpu/ISR.c -o $(BUILD)/ISR.o
+	$(GCC) -c cpu/IRQ.c -o $(BUILD)/IRQ.o
+	$(GCC) -c cpu/timer.c -o $(BUILD)/timer.o
 	nasm cpu/interrupt.asm -f elf -o $(BUILD)/interrupt.o
 
-drivers: drivers/keyboard.c drivers/keyboard.h
-	$(TARGET)-gcc $(CFLAGS) -c drivers/keyboard.c -o $(BUILD)/keyboard.o
+drivers: drivers/keyboard.c drivers/keyboard.h drivers/ports.c drivers/ports.h drivers/screen.c drivers/screen.h
+	$(GCC) -c drivers/ports.c -o $(BUILD)/ports.o
+	$(GCC) -c drivers/screen.c -o $(BUILD)/screen.o
+	$(GCC) -c drivers/keyboard.c -o $(BUILD)/keyboard.o
 
 
 
@@ -76,10 +80,11 @@ clear-build:
 		$(BUILD)/kernel.o \
 		$(BUILD)/ports.o \
 		$(BUILD)/screen.o \
-		$(BUILD)/utils.o \
 		$(BUILD)/IDT.o \
 		$(BUILD)/ISR.o \
 		$(BUILD)/IRQ.o \
 		$(BUILD)/timer.o \
 		$(BOOT)/interrupt.o \
-		$(BUILD)/keyboard.o
+		$(BUILD)/keyboard.o \
+		$(BUILD)/memory.o \
+		$(BUILD)/string.o
