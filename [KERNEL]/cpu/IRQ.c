@@ -39,12 +39,12 @@ void register_irq(uint8_t n, isr_t handler) {
     handlers[n] = handler;
 }
 
-void irq_handler(ISR_registers_t reg) {
-    if(reg.number >= 40) pbout(0xA0, 0x20);
+void irq_handler(ISR_registers_t *reg) {
+    if(reg->number >= 40) pbout(0xA0, 0x20);
     pbout(0x20, 0x20);
 
-    if(handlers[reg.number] != 0) {
-        isr_t handler = handlers[reg.number];
+    if(handlers[reg->number] != 0) {
+        isr_t handler = handlers[reg->number];
         handler(reg);
     }
 }

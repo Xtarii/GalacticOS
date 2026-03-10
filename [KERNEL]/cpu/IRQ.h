@@ -55,7 +55,7 @@ extern void irq_15();
 /**
  * Interrupt handler callback function
  */
-typedef void (*isr_t)(ISR_registers_t);
+typedef void (*isr_t)(ISR_registers_t*);
 
 /**
  * Initializes the kernel interrupt requests
@@ -70,6 +70,6 @@ void register_irq(uint8_t, isr_t);
 /**
  * Interrupt request handler
  */
-void irq_handler(ISR_registers_t);
+void irq_handler(ISR_registers_t*);
 
 #endif // GALACTIC_IRQ_H

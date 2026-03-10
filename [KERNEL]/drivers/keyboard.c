@@ -7,7 +7,7 @@
 #include "../../libc/string.h"
 #include "../../libc/function.h"
 
-static void callback(ISR_registers_t reg) {
+static void callback(ISR_registers_t *reg) {
     LATEUSAGE(reg);
 
     uint8_t code = pbin(0x60);

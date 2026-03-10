@@ -81,12 +81,12 @@ char *messages[] = {
 
 
 
-void isr_handler(ISR_registers_t reg) {
+void isr_handler(ISR_registers_t *reg) {
     kprint("Received interrupt: ");
     char s[3];
-    itoa(reg.number, s);
+    itoa(reg->number, s);
     kprint(s);
     kprint("\n");
-    kprint(messages[reg.number]);
+    kprint(messages[reg->number]);
     kprint("\n");
 }

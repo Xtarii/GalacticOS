@@ -52,7 +52,7 @@ typedef struct {
     /**
      * Pushed registers from `pusha`
      */
-    uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax;
+    uint32_t edi, esi, ebp, useless, ebx, edx, ecx, eax;
 
     /**
      * Interruption number
@@ -66,7 +66,7 @@ typedef struct {
     /**
      * Processor registers ( pushed automatically by the processor )
      */
-    uint32_t eip, cs, eflags, useresp, ss;
+    uint32_t eip, cs, eflags, esp, ss;
 } ISR_registers_t;
 
 
@@ -79,6 +79,6 @@ void isr_init();
 /**
  * Interrupt service routine register handler
  */
-void isr_handler(ISR_registers_t);
+void isr_handler(ISR_registers_t*);
 
 #endif // GALACTIC_ISR_H

@@ -10,9 +10,12 @@ isr:
     mov es, ax
     mov fs, ax
     mov gs, ax
+    push esp
 
+    cld
     call isr_handler
 
+    pop eax
     pop eax
     mov ds, ax
     mov es, ax
@@ -20,7 +23,6 @@ isr:
     mov gs, ax
     popa
     add esp, 8
-    sti
     iret
 
 irq:
@@ -32,9 +34,12 @@ irq:
     mov es, ax
     mov fs, ax
     mov gs, ax
+    push esp
 
+    cld
     call irq_handler
 
+    pop ebx
     pop ebx
     mov ds, bx
     mov es, bx
@@ -42,7 +47,6 @@ irq:
     mov gs, bx
     popa
     add esp, 8
-    sti
     iret
 
 
@@ -103,187 +107,155 @@ global irq_15
 
 
 isr_0:
-    cli
     push byte 0
     push byte 0
     jmp isr
 
 isr_1:
-    cli
     push byte 0
     push byte 1
     jmp isr
 
 isr_2:
-    cli
     push byte 0
     push byte 2
     jmp isr
 
 isr_3:
-    cli
     push byte 0
     push byte 3
     jmp isr
 
 isr_4:
-    cli
     push byte 0
     push byte 4
     jmp isr
 
 isr_5:
-    cli
     push byte 0
     push byte 5
     jmp isr
 
 isr_6:
-    cli
     push byte 0
     push byte 6
     jmp isr
 
 isr_7:
-    cli
     push byte 0
     push byte 7
     jmp isr
 
 isr_8:
-    cli
     push byte 8
     jmp isr
 
 isr_9:
-    cli
     push byte 0
     push byte 9
     jmp isr
 
 isr_10:
-    cli
     push byte 10
     jmp isr
 
 isr_11:
-    cli
     push byte 11
     jmp isr
 
 isr_12:
-    cli
     push byte 12
     jmp isr
 
 isr_13:
-    cli
     push byte 13
     jmp isr
 
 isr_14:
-    cli
     push byte 14
     jmp isr
 
 isr_15:
-    cli
     push byte 0
     push byte 15
     jmp isr
 
 isr_16:
-    cli
     push byte 0
     push byte 16
     jmp isr
 
 isr_17:
-    cli
     push byte 0
     push byte 17
     jmp isr
 
 isr_18:
-    cli
     push byte 0
     push byte 18
     jmp isr
 
 isr_19:
-    cli
     push byte 0
     push byte 19
     jmp isr
 
 isr_20:
-    cli
     push byte 0
     push byte 20
     jmp isr
 
 isr_21:
-    cli
     push byte 0
     push byte 21
     jmp isr
 
 isr_22:
-    cli
     push byte 0
     push byte 22
     jmp isr
 
 isr_23:
-    cli
     push byte 0
     push byte 23
     jmp isr
 
 isr_24:
-    cli
     push byte 0
     push byte 24
     jmp isr
 
 isr_25:
-    cli
     push byte 0
     push byte 25
     jmp isr
 
 isr_26:
-    cli
     push byte 0
     push byte 26
     jmp isr
 
 isr_27:
-    cli
     push byte 0
     push byte 27
     jmp isr
 
 isr_28:
-    cli
     push byte 0
     push byte 28
     jmp isr
 
 isr_29:
-    cli
     push byte 0
     push byte 29
     jmp isr
 
 isr_30:
-    cli
     push byte 0
     push byte 30
     jmp isr
 
 isr_31:
-    cli
     push byte 0
     push byte 31
     jmp isr
@@ -292,97 +264,81 @@ isr_31:
 ; Interrupt request handlers
 ;
 irq_0:
-    cli
     push byte 0
     push byte 32
     jmp irq
 
 irq_1:
-    cli
     push byte 1
     push byte 33
     jmp irq
 
 irq_2:
-    cli
     push byte 2
     push byte 34
     jmp irq
 
 irq_3:
-    cli
     push byte 3
     push byte 35
     jmp irq
 
 irq_4:
-    cli
     push byte 4
     push byte 36
     jmp irq
 
 irq_5:
-    cli
     push byte 5
     push byte 37
     jmp irq
 
 irq_6:
-    cli
     push byte 6
     push byte 38
     jmp irq
 
 irq_7:
-    cli
     push byte 7
     push byte 39
     jmp irq
 
 irq_8:
-    cli
     push byte 8
     push byte 40
     jmp irq
 
 irq_9:
-    cli
     push byte 9
     push byte 41
     jmp irq
 
 irq_10:
-    cli
     push byte 10
     push byte 42
     jmp irq
 
 irq_11:
-    cli
     push byte 11
     push byte 43
     jmp irq
 
 irq_12:
-    cli
     push byte 12
     push byte 44
     jmp irq
 
 irq_13:
-    cli
     push byte 13
     push byte 45
     jmp irq
 
 irq_14:
-    cli
     push byte 14
     push byte 46
     jmp irq
 
 irq_15:
-    cli
     push byte 15
     push byte 47
     jmp irq

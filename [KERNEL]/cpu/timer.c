@@ -8,7 +8,7 @@
 
 uint32_t tick = 0;
 
-static void callback(ISR_registers_t reg) {
+static void callback(ISR_registers_t *reg) {
     tick++;
     LATEUSAGE(reg);
 
