@@ -38,6 +38,7 @@ void isr_init() {
     idt_gate_set(31, (uint32_t)(long)isr_31);
 
     idt_set(); // Loads handles with assembly
+    asm volatile("sti"); // Needed for callbacks
 }
 
 
