@@ -6,7 +6,7 @@
 
 #include "../libc/string.h"
 
-void main() {
+void kernel_main() {
     irq_init();
     isr_init();
     asm volatile("sti"); // Needed for callbacks

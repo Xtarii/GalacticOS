@@ -1,7 +1,7 @@
 ROOT=$(PREFIX)/..
 BUILD=$(PREFIX)/../build
 
-CFLAGS=-g -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
+CFLAGS=-g -m32 -fno-builtin -fno-stack-protector \
 	-nostartfiles -nodefaultlibs -ffreestanding -Wall -Wextra -Werror
 
 GCC=$(TARGET)-gcc $(CFLAGS)
