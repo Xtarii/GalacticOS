@@ -21,8 +21,12 @@ int strlen(const char*);
 /**
  * Compares two strings with each other
  *
+ * This is `0` if the strings are equal.
+ * `Negative` if `b` is greater than `a`
+ * otherwise `positive`.
+ *
  * @return How similar the strings are.
  */
-int strcmp(const char*, const char*);
+int strcmp(const char* a, const char* b);
 
 #endif // STRING_H
