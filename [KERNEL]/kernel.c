@@ -5,7 +5,7 @@
 #include "drivers/screen.h"
 
 #include "../libc/string.h"
-#include "../libc/memory.h"
+#include "memory/memory.h"
 
 void kernel_main() {
     irq_init();
@@ -14,8 +14,8 @@ void kernel_main() {
 
     // clear();
 
-    uint32_t addr;
-    uint32_t mem = kmalloc(1000, TRUE, &addr);
+    uintptr_t addr;
+    uintptr_t mem = kmalloc(1000, true, &addr);
 
 
     char page_str[16] = "";
