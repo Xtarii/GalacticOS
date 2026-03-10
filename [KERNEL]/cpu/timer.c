@@ -3,7 +3,7 @@
 #include "ISR.h"
 #include "../drivers/ports.h"
 #include "../drivers/screen.h"
-#include "../utilities/utils.h"
+#include "../../libc/string.h"
 
 uint32_t tick = 0;
 

@@ -2,7 +2,6 @@
 #include "IDT.h"
 #include "ISR.h"
 #include "../drivers/ports.h"
-#include "../utilities/utils.h"
 
 isr_t handlers[INTERRUPT_HANDLERS];
 

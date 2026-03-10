@@ -1,6 +1,6 @@
 #include "screen.h"
 #include "ports.h"
-#include "../utilities/utils.h"
+#include "../../libc/memory.h"
 
 // ==========================
 // Private method ( decl )
@@ -95,7 +95,7 @@ int scroll_if_needed(int scroll) {
         int sa = get_offset(0, i) + VIDEO_ADDRESS;
         void *src = (void*)((long)get_offset(0, i)) + VIDEO_ADDRESS;
         void *dst = (void*)((long)get_offset(0, i - 1)) + VIDEO_ADDRESS;
-        kmemcpy(src, dst, MAX_COLS * 2);
+        memcpy(src, dst, MAX_COLS * 2);
     }
 
     char *last = (char *)((long)get_offset(0, MAX_ROWS - 1)) + VIDEO_ADDRESS;

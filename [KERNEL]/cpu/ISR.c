@@ -1,7 +1,7 @@
 #include "ISR.h"
 #include "IDT.h"
 #include "../drivers/screen.h"
-#include "../utilities/utils.h"
+#include "../../libc/string.h"
 
 void isr_init() {
     idt_gate_set(0, (uint32_t)(long)isr_0);

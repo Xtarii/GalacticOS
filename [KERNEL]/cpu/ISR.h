@@ -1,7 +1,7 @@
 #ifndef GALACTIC_ISR_H
 #define GALACTIC_ISR_H
 
-#include "../utilities/types.h"
+#include "../../libc/ctypes.h"
 
 
 

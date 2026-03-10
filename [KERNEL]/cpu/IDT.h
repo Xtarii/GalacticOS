@@ -1,12 +1,21 @@
 #ifndef GALACTIC_IDT_H
 #define GALACTIC_IDT_H
 
-#include "../utilities/types.h"
+#include "../../libc/ctypes.h"
 
 /**
  * Kernel segment selectors
  */
 #define KERNEL_SS 0x08
+
+/**
+ * Low 16 bit for address
+ */
+#define LOW_16(address) (uint16_t)((address) & 0xFFFF)
+/**
+ * High 16 bit for address
+ */
+#define HIGH_16(address) (uint16_t)(((address) >> 16) & 0xFFFF)
 
 /**
  * Interrupt descriptor gate structure
