@@ -2,11 +2,20 @@
 #include <stdint.h>
 
 /**
+ * Kernel end address
+ */
+extern char kernel_end_address;
+
+/**
  * Free memory address used for allocation memory
  *
  * This is provided by the linker.
  */
-extern uintptr_t free_memory_address;
+uintptr_t free_memory_address;
+
+void memory_init() {
+    free_memory_address = (uintptr_t)&kernel_end_address;
+}
 
 
 

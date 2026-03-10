@@ -11,6 +11,7 @@
 void kernel_main() {
     irq_init();
     isr_init();
+    memory_init();
     paging_init();
 
     // clear();

@@ -6,6 +6,11 @@
 #include <stdint.h>
 
 /**
+ * Initializes memory management
+ */
+void memory_init();
+
+/**
  * Kernel system method for allocating memory
  *
  * @return The allocated memory address
