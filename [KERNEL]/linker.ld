@@ -22,5 +22,5 @@ SECTIONS {
     }
 
 
-    free_memory_address = ALIGN(4096);
+    kernel_end_address = .;
 }
