@@ -5,6 +5,7 @@
 #include "drivers/screen.h"
 
 #include "../libc/string.h"
+#include "../libc/memory.h"
 
 void kernel_main() {
     irq_init();
@@ -13,10 +14,23 @@ void kernel_main() {
 
     // clear();
 
-    char ascii[5];
-    htoa(0xFF, ascii);
-    kprint(ascii);
+    uint32_t addr;
+    uint32_t mem = kmalloc(1000, TRUE, &addr);
+
+
+    char page_str[16] = "";
+    htoa(mem, page_str);
+    char phys_str[16] = "";
+    htoa(addr, phys_str);
+
+    kprint("Page: ");
+    kprint(page_str);
+
+    kprint(", physical address: ");
+    kprint(phys_str);
+
     kprint("\n");
+
 
     // init_timer(1193180 * 2);
 
