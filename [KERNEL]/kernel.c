@@ -1,8 +1,10 @@
 #include "cpu/IRQ.h"
 #include "cpu/ISR.h"
-#include "cpu/timer.h"
-#include "drivers/keyboard.h"
+// #include "cpu/timer.h"
+// #include "drivers/keyboard.h"
 #include "drivers/screen.h"
+
+#include "../libc/string.h"
 
 void main() {
     irq_init();
@@ -11,9 +13,14 @@ void main() {
 
     clear();
 
-    init_timer(1193180 * 2);
+    char ascii[5];
+    itoa(15, ascii);
+    kprint(ascii);
+    kprint("\n");
 
-    init_keyboard();
+    // init_timer(1193180 * 2);
+
+    // init_keyboard();
 
     while(1); /* Infinity loop */
 }
