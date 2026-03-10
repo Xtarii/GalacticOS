@@ -11,7 +11,7 @@ void kernel_main() {
     isr_init();
     asm volatile("sti"); // Needed for callbacks
 
-    clear();
+    // clear();
 
     char ascii[5];
     htoa(0xFF, ascii);
