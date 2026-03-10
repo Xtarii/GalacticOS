@@ -7,4 +7,9 @@ enable_paging:
     mov eax, cr0
     or eax, 0x80000000      ; Enables paging
     mov cr0, eax
+
+    mov eax, cr4
+    or eax, 0x00000010
+    mov cr4, eax
+
     ret
