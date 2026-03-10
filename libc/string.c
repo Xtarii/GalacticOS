@@ -2,9 +2,9 @@
 #include "bool.h"
 
 void itoa(int n, char *str) {
-    bool neg = false;
+    BOOL neg = FALSE;
     if(n < 0) {
-        neg = true;
+        neg = TRUE;
         n = -n;
     }
 

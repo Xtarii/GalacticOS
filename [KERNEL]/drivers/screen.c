@@ -92,7 +92,6 @@ int scroll_if_needed(int scroll) {
     if(scroll < MAX_ROWS * MAX_COLS * 2) return 0;
 
     for(int i = 0; i < MAX_ROWS; i++) {
-        int sa = get_offset(0, i) + VIDEO_ADDRESS;
         void *src = (void*)((long)get_offset(0, i)) + VIDEO_ADDRESS;
         void *dst = (void*)((long)get_offset(0, i - 1)) + VIDEO_ADDRESS;
         memcpy(src, dst, MAX_COLS * 2);

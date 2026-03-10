@@ -6,8 +6,11 @@
 
 #include "../../libc/string.h"
 #include "../../libc/ctypes.h"
+#include "../../libc/function.h"
 
 static void callback(ISR_registers_t reg) {
+    LATEUSAGE(reg);
+
     uint8_t code = pbin(0x60);
     char ascii[256];
     itoa(code, ascii);

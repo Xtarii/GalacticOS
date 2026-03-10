@@ -11,11 +11,11 @@ typedef enum _bool {
     /**
      * A true value represented by `1`
      */
-    true = 1,
+    TRUE = 1,
     /**
      * A false value represented by `0`
      */
-    false = 0
-} bool;
+    FALSE = 0
+} BOOL;
 
 #endif // BOOL_H

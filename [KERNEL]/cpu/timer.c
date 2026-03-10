@@ -4,11 +4,13 @@
 #include "../drivers/ports.h"
 #include "../drivers/screen.h"
 #include "../../libc/string.h"
+#include "../../libc/function.h"
 
 uint32_t tick = 0;
 
 static void callback(ISR_registers_t reg) {
     tick++;
+    LATEUSAGE(reg);
 
     kprint_at("Tick: ", 0, 0);
     char ascii[256];
