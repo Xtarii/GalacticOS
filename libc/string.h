@@ -7,6 +7,11 @@
 void itoa(int, char*);
 
 /**
+ * Converts hex to a character string
+ */
+void htoa(int, char*);
+
+/**
  * Reverse string
  */
 void reverse(char*);

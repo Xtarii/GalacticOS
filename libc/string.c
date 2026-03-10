@@ -1,5 +1,6 @@
 #include "string.h"
 #include "bool.h"
+#include "ctypes.h"
 
 void itoa(int n, char *str) {
     BOOL neg = FALSE;
@@ -16,6 +17,26 @@ void itoa(int n, char *str) {
     if(neg) str[i++] = '-';
     str[i] = '\0';
     reverse(str);
+}
+
+void htoa(int n, char *str) {
+    str[0] = '0';
+    str[1] = 'x';
+    char zeros = 0;
+
+    int32_t tmp;
+    int i, c = 2;
+    for(i = 28; i > 0; i -= 4) {
+        tmp = (n >> i) & 0xF;
+        if(tmp == 0 && zeros == 0) continue;
+        zeros = 1;
+        if(tmp > 0xA) str[c++] = tmp - 0xA + 'A';
+        else str[c++] = tmp + '0';
+    }
+
+    tmp = n & 0xF;
+    if(tmp >= 0xA) str[c++] = tmp - 0xA + 'A';
+    else str[c++] = tmp + '0';
 }
 
 void reverse(char *str) {

@@ -14,7 +14,7 @@ void main() {
     clear();
 
     char ascii[5];
-    itoa(15, ascii);
+    htoa(0xFF, ascii);
     kprint(ascii);
     kprint("\n");
 
