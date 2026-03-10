@@ -2,6 +2,13 @@
 #define CTYPES_H
 
 /**
+ * Null value representing a lack of value
+ */
+#define null 0
+
+
+
+/**
  * Unsigned 32 bit integer
  */
 typedef unsigned int uint32_t;
