@@ -2,7 +2,7 @@
 #define GALACTIC_IRQ_H
 
 #include "ISR.h"
-#include "../../libc/ctypes.h"
+#include <stdint.h>
 
 /**
  * Number of interrupt handlers

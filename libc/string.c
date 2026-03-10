@@ -1,6 +1,6 @@
 #include "string.h"
 #include "bool.h"
-#include "ctypes.h"
+#include <stdint.h>
 
 void itoa(int n, char *str) {
     BOOL neg = FALSE;

@@ -43,7 +43,7 @@ void irq_handler(ISR_registers_t reg) {
     if(reg.number >= 40) pbout(0xA0, 0x20);
     pbout(0x20, 0x20);
 
-    if(handlers[reg.number] != null) {
+    if(handlers[reg.number] != 0) {
         isr_t handler = handlers[reg.number];
         handler(reg);
     }

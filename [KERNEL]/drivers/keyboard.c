@@ -5,7 +5,6 @@
 #include "screen.h"
 
 #include "../../libc/string.h"
-#include "../../libc/ctypes.h"
 #include "../../libc/function.h"
 
 static void callback(ISR_registers_t reg) {

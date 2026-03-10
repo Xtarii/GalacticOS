@@ -1,7 +1,7 @@
 #ifndef GALACTIC_TIMER_H
 #define GALACTIC_TIMER_H
 
-#include "../../libc/ctypes.h"
+#include <stdint.h>
 
 /**
  * Initializes timer

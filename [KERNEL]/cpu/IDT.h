@@ -1,7 +1,7 @@
 #ifndef GALACTIC_IDT_H
 #define GALACTIC_IDT_H
 
-#include "../../libc/ctypes.h"
+#include <stdint.h>
 
 /**
  * Kernel segment selectors
