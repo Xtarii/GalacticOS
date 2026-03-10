@@ -15,7 +15,7 @@ kernel: ${KERNEL_DEPENDENCIES}
 	$(GCC) -c kernel.c -o $(BUILD)/kernel.o
 	nasm entry.asm -f elf -o $(BUILD)/entry.o
 
-	@$(TARGET)-ld -o $(BUILD)/kernel.bin -Ttext 0x1000 \
+	@$(TARGET)-ld -o $(BUILD)/kernel.bin -T linker.ld \
 		$(BUILD)/entry.o \
 		$(BUILD)/kernel.o \
 		$(BUILD)/ports.o \
@@ -30,7 +30,7 @@ kernel: ${KERNEL_DEPENDENCIES}
 		$(BUILD)/string.o \
 		--oformat binary
 
-	@$(TARGET)-ld -o $(BUILD)/kernel-debug.elf -Ttext 0x1000 \
+	@$(TARGET)-ld -o $(BUILD)/kernel-debug.elf -T linker.ld \
 		$(BUILD)/entry.o \
 		$(BUILD)/kernel.o \
 		$(BUILD)/ports.o  \
