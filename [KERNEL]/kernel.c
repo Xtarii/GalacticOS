@@ -8,7 +8,7 @@
 #include "memory/memory.h"
 #include "memory/paging.h"
 
-void kernel_main() {
+void kernel_init() {
     irq_init();
     isr_init();
     memory_init();
