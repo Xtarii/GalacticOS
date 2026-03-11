@@ -23,7 +23,8 @@ void paging_init() {
 
     first_table = (uint32_t*)kmalloc(sizeof(uint32_t) * 1024, true, NULL);
     for(unsigned int i = 0; i < 1024; i++) first_table[i] = (i * 0x1000) | 3;
-    directory[0] = ((unsigned int)first_table | 3);
+    directory[0] = ((uint32_t)first_table | 3);
+    directory[768] = ((uint32_t)first_table | 3);
 
     enable_paging(directory);
 }
