@@ -19,7 +19,11 @@ bootable: $(BOOT) build grub.cfg
 build: $(BUILD) $(OUT) FORCE
 	$(MAKE) -C "./[BOOT]/"
 	$(MAKE) -C "./kernel/"
-	$(GCC) -T linker.ld -o $(BUILD)/$(NAME) $(BUILD)/boot.o $(BUILD)/kernel.o
+	$(GCC) -T linker.ld -o $(BUILD)/$(NAME) \
+		$(BUILD)/boot.o \
+		$(BUILD)/kernel.o \
+		$(BUILD)/GDT.o \
+		$(BUILD)/GDT_asm.o
 
 
 

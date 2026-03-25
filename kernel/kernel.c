@@ -1,3 +1,4 @@
+#include "cpu/gdt/GDT.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -107,6 +108,9 @@ void terminal_writestring(const char* data)
 
 void kernel_main(void)
 {
+	gdt_init();
+
+
 	/* Initialize terminal interface */
 	terminal_initialize();
 
