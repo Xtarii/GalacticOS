@@ -13,6 +13,7 @@
 
 
 # Initial stack setup
+.global stack_top
 .section    .bootstrap_stack, "aw", @nobits
 stack_bottom:
 .skip       16384

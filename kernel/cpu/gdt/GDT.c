@@ -1,8 +1,17 @@
 #include "GDT.h"
 #include <stdint.h>
 
+/**
+ * Kernel stack top ( defined in boot )
+ */
+extern char stack_top[];
+
+
+
 GDT gdts[GDT_ENTRIES]; // GDT entries list
 GDTR pointer;
+
+TSS tss; // Task state segment
 
 void gdt_set(int index, uint32_t base, uint32_t limit, uint8_t access, uint8_t gran) {
     gdts[index].lower_base = (base & 0xFFFF);
@@ -20,9 +29,24 @@ void gdt_init() {
     pointer.limit = (sizeof(GDT) * GDT_ENTRIES) - 1;
     pointer.base = (uint32_t)(long)&gdts;
 
+    // Kernel
     gdt_set(0, 0, 0, 0, 0);
     gdt_set(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
     gdt_set(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
 
+    // User
+    gdt_set(3, 0, 0xFFFFFFFF, 0xFA, 0xCF);
+    gdt_set(4, 0, 0xFFFFFFFF, 0xF2, 0xCF);
+
+    // TSS
+    tss_init((uint32_t)(long)stack_top);
+    gdt_set(5, (uint32_t)(long)&tss, sizeof(tss) - 1, 0x89, 0x00);
+
     gdt_flush((uint32_t)(long)&pointer);
+}
+
+void tss_init(uint32_t stack) {
+    tss.esp0 = stack;
+    tss.ss0 = 0x10;
+    tss.base = sizeof(TSS);
 }
