@@ -23,7 +23,8 @@ build: $(BUILD) $(OUT) FORCE
 		$(BUILD)/boot.o \
 		$(BUILD)/kernel.o \
 		$(BUILD)/GDT.o \
-		$(BUILD)/GDT_asm.o
+		$(BUILD)/GDT_asm.o \
+		$(BUILD)/IDT.o
 
 
 

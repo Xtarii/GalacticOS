@@ -9,7 +9,7 @@ extern char stack_top[];
 
 
 GDT gdts[GDT_ENTRIES]; // GDT entries list
-GDTR pointer;
+GDTR gdt_pointer;
 
 TSS tss; // Task state segment
 
@@ -26,8 +26,8 @@ void gdt_set(int index, uint32_t base, uint32_t limit, uint8_t access, uint8_t g
 }
 
 void gdt_init() {
-    pointer.limit = (sizeof(GDT) * GDT_ENTRIES) - 1;
-    pointer.base = (uint32_t)(long)&gdts;
+    gdt_pointer.limit = (sizeof(GDT) * GDT_ENTRIES) - 1;
+    gdt_pointer.base = (uint32_t)(long)&gdts;
 
     // Kernel
     gdt_set(0, 0, 0, 0, 0);
@@ -42,7 +42,7 @@ void gdt_init() {
     tss_init((uint32_t)(long)stack_top);
     gdt_set(5, (uint32_t)(long)&tss, sizeof(tss) - 1, 0x89, 0x00);
 
-    gdt_flush((uint32_t)(long)&pointer);
+    gdt_flush((uint32_t)(long)&gdt_pointer);
 }
 
 void tss_init(uint32_t stack) {
