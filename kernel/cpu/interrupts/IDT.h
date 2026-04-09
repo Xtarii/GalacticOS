@@ -55,7 +55,7 @@ typedef struct {
 /**
  * Sets interrupt descriptor table callback
  */
-void idt_set(int, uint32_t, uint16_t, uint8_t);
+void idt_set(int index, uint32_t handler, uint16_t selector, uint8_t flags);
 
 /**
  * Initializes interrupt descriptor tables
