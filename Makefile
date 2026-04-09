@@ -24,7 +24,9 @@ build: $(BUILD) $(OUT) FORCE
 		$(BUILD)/kernel.o \
 		$(BUILD)/GDT.o \
 		$(BUILD)/GDT_asm.o \
-		$(BUILD)/IDT.o
+		$(BUILD)/interrupt.o \
+		$(BUILD)/IDT.o \
+		$(BUILD)/ISR.o
 
 
 
