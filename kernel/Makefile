@@ -3,7 +3,7 @@ BUILD=$(PREFIX)/../build
 CFLAGS=-std=gnu99 -O2 -Wall -Wextra -ffreestanding
 GCC = $(TARGET)-gcc $(CFLAGS)
 
-DEPENDS=CPU
+DEPENDS=CPU DRIVERS
 
 
 
@@ -19,6 +19,9 @@ CPU: cpu/*
 
 	nasm cpu/gdt/GDT.asm -f elf -o $(BUILD)/GDT_asm.o
 	nasm cpu/interrupts/interrupt.asm -f elf -o $(BUILD)/interrupt.o
+
+DRIVERS: drivers/*
+	$(GCC) -c drivers/port.c -o $(BUILD)/port.o
 
 
 

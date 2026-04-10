@@ -47,9 +47,21 @@ typedef struct {
 
 
 /**
+ * Interrupt service route handler callback
+ */
+typedef void (*isr_func)(ISR);
+
+
+
+/**
  * Initializes the interruption service
  */
 void isr_init(void);
+
+/**
+ * Registers an interruption callback handler to the interrupt service
+ */
+void isr_register(uint8_t, isr_func);
 
 
 

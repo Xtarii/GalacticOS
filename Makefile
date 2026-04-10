@@ -26,7 +26,8 @@ build: $(BUILD) $(OUT) FORCE
 		$(BUILD)/GDT_asm.o \
 		$(BUILD)/interrupt.o \
 		$(BUILD)/IDT.o \
-		$(BUILD)/ISR.o
+		$(BUILD)/ISR.o \
+		$(BUILD)/port.o
 
 
 
